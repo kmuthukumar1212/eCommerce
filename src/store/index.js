@@ -10,6 +10,7 @@ const baseUrl = "https://localhost:44304/api";
 const pagesUrl = `${baseUrl}/pages`;
 const categoriesUrl = `${baseUrl}/categories`;
 const productsUrl = `${baseUrl}/products`;
+const productImagesUrl = "https://localhost:44304/media/products/";
 
 export default new Vuex.Store({
 
@@ -17,7 +18,8 @@ export default new Vuex.Store({
     state: {
         pages: [],
         categories: [],
-        products: []
+        products: [],
+        productImages : productImagesUrl
     },
     mutations: {
         setPages(state, pages) {
