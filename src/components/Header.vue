@@ -16,9 +16,10 @@
         <div class="collapse navbar-collapse" id="navbarsExampleDefault">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active" v-for="(p, i) in pages" :key="i">
-                    <router-link class="nav-link" :to="'/' + p.slug">
+                    <!-- <router-link class="nav-link" :to="'/' + p.slug">
                         {{ p.name }}
-                    </router-link>
+                    </router-link> -->
+                    {{ p.name }}
                 </li>
             </ul>
         </div>

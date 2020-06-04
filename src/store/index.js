@@ -3,7 +3,7 @@ import Vuex from "vuex";
 
 import Axios from "axios";
 
-Vue.use(vuex);
+Vue.use(Vuex);
 
 const baseUrl = "https://localhost:44304/api";
 
