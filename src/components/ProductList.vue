@@ -6,13 +6,13 @@
             <div class="row">
                 <div class="col-4 mt-3" v-for="(p, i) in products" :key="i">
                     <p>
-                        <img :src="productImages + p.image" class="img-fluid"> 
+                        <img :src="productImages + p.image" class="img-fluid" />
                     </p>
                     <h3>
                         {{ p.name }}
                     </h3>
                     <p>
-                        {{ p.description}}
+                        {{ p.description }}
                     </p>
                     <p>
                         {{ p.price | currency }}
@@ -22,30 +22,40 @@
                     </p>
                 </div>
             </div>
+
+            <ProductPagination />
         </div>
     </div>
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
+import { mapState, mapActions, mapMutations } from "vuex";
 
 import CategoryList from "./CategoryList";
+import ProductPagination from "./ProductPagination";
 
 export default {
-    components: { CategoryList },
+    components: {
+        CategoryList,
+        ProductPagination,
+    },
     computed: {
         ...mapState(["products", "productImages"]),
     },
     methods: {
-        ...mapActions(["setProductsByCategoryAction"])
+        ...mapMutations(["setCurrentCategory", "setCurrentPage"]),
+        ...mapActions(["setProductsByCategoryAction"]),
     },
     created() {
         let category = this.$route.params.category;
         this.setProductsByCategoryAction(category);
+        this.setCurrentCategory(category);
     },
     beforeRouteUpdate(to, from, next) {
+        this.setCurrentPage(1);
         this.setProductsByCategoryAction(to.params.category);
+        this.setCurrentCategory(to.params.category);
         next();
-    }
+    },
 };
 </script>
