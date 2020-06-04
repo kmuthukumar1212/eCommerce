@@ -1,8 +1,6 @@
 <template>
     <div class="row mt-3">
-        <div class="col">
-            categories
-        </div>
+        <CategoryList />
 
         <div class="col-9">
             {{ pageContent }}
@@ -11,22 +9,26 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState } from "vuex";
+
+import CategoryList from "./CategoryList";
 
 export default {
-    components: {},
+    components: { CategoryList },
     computed: {
         ...mapState(["pages"]),
         pageContent() {
-            let slug = this.$route.params.slug ? this.$route.params.slug : "home";
-            let page = this.pages.find(page => page.slug == slug);
+            let slug = this.$route.params.slug
+                ? this.$route.params.slug
+                : "home";
+            let page = this.pages.find((page) => page.slug == slug);
 
             if (page) {
                 return page.content;
             }
 
             return "";
-        }
+        },
     },
 };
 </script>
