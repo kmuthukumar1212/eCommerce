@@ -36,7 +36,7 @@
             <router-link to="/cart" class="btn btn-secondary m-1"
                 >Back</router-link
             >
-            <button class="btn btn-primary m-1">Place Order</button>
+            <button class="btn btn-primary m-1" @click="submitOrder">Place Order</button>
         </div>
     </div>
 </template>
@@ -45,6 +45,7 @@
 // import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
 import ValidationError from "./ValidationError";
 import { required, email } from "vuelidate/lib/validators";
+import { mapState, mapGetters, mapActions } from 'vuex';
 
 export default {
     components: {
@@ -59,7 +60,14 @@ export default {
             },
         };
     },
-    computed: {},
+    computed: {
+        ...mapState({
+            cart: state => state.cart.cart
+        }),
+        ...mapGetters({
+            total: "cart/totalPrice"
+        })
+    },
     validations: {
         order: {
             name: { required },
@@ -67,6 +75,27 @@ export default {
             address: { required },
         },
     },
-    methods: {},
+    methods: {
+        ...mapActions({
+            storeOrder: "orders/storeOrderAction",
+            clearCartData: "cart/clearCartData"
+        }),
+        async submitOrder() {
+            this.$v.$touch();
+            if (!this.$v.$invalid) {
+                const order = new FormData();
+
+                order.append("Name", this.order.name);
+                order.append("Email", this.order.email);
+                order.append("Address", this.order.address);
+                order.append("Cart", JSON.stringify(this.cart));
+                order.append("Total", this.total);
+
+                await this.storeOrder(order);
+                this.clearCartData();
+                this.$router.push("/thanks");
+            }
+        }
+    },
 };
 </script>
