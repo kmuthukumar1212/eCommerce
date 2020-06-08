@@ -18,7 +18,12 @@
                         {{ p.price | currency }}
                     </p>
                     <p>
-                        <button class="btn btn-primary">Add to cart</button>
+                        <button
+                            class="btn btn-primary"
+                            @click="handleAddProduct(p)"
+                        >
+                            Add to cart
+                        </button>
                     </p>
                 </div>
             </div>
@@ -44,7 +49,11 @@ export default {
     },
     methods: {
         ...mapMutations(["setCurrentCategory", "setCurrentPage"]),
+        ...mapMutations({ addProduct: "cart/addProduct" }),
         ...mapActions(["setProductsByCategoryAction"]),
+        handleAddProduct(product) {
+            this.addProduct(product);
+        },
     },
     created() {
         let category = this.$route.params.category;

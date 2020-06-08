@@ -17,10 +17,12 @@ export default {
     },
     methods: {
         ...mapActions(["setPagesAction", "setCategoriesAction"]),
+        ...mapActions({ initializeCart: "cart/initializeCart" }),
     },
     async created() {
         this.setPagesAction();
         this.setCategoriesAction();
+        this.initializeCart(this.$store);
     },
 };
 </script>
