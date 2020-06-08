@@ -27,9 +27,30 @@ export default {
                 state.cart.push({ product: product, quantity: 1 });
             }
         },
+        subtractProduct(state, id) {
+            let cartItem = state.cart.find(
+                (cartItem) => cartItem.product.id == id
+            );
+            if (cartItem.quantity == 1) {
+                let index = state.cart.findIndex(
+                    (item) => item.product.id == id
+                );
+                if (index != -1) {
+                    state.cart.splice(index, 1);
+                }
+            } else {
+                cartItem.quantity--;
+            }
+        },
+        removeProduct(state, id) {
+            let index = state.cart.findIndex((item) => item.product.id == id);
+            if (index != -1) {
+                state.cart.splice(index, 1);
+            }
+        },
         setCartData(state, data) {
             state.cart = data;
-        }
+        },
     },
     actions: {
         loadCartData(context) {
@@ -49,5 +70,8 @@ export default {
                 { deep: true }
             );
         },
+        clearCartData(context) {
+            context.commit("setCartData", []);
+        }
     },
 };

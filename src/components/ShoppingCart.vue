@@ -56,7 +56,10 @@
                     </tr>
                     <tr>
                         <td colspan="5">
-                            <button class="btn btn-danger float-left">
+                            <button
+                                class="btn btn-danger float-left"
+                                @click="handleClearCart"
+                            >
                                 Clear Cart
                             </button>
                             <router-link
@@ -73,7 +76,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from "vuex";
+import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
 
 import CategoryList from "./CategoryList";
 
@@ -85,6 +88,26 @@ export default {
             itemCount: "cart/itemCount",
             totalPrice: "cart/totalPrice",
         }),
+    },
+    methods: {
+        ...mapMutations({
+            addProduct: "cart/addProduct",
+            subtractProduct: "cart/subtractProduct",
+            removeProduct: "cart/removeProduct",
+        }),
+        ...mapActions({ clearCartData: "cart/clearCartData" }),
+        handleAddProduct(product) {
+            this.addProduct(product);
+        },
+        handleSubtractProduct(id) {
+            this.subtractProduct(id);
+        },
+        handleRemoveProduct(id) {
+            this.removeProduct(id);
+        },
+        handleClearCart() {
+            this.clearCartData();
+        },
     },
 };
 </script>
