@@ -16,22 +16,29 @@
         <div class="collapse navbar-collapse" id="navbarsExampleDefault">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active" v-for="(p, i) in pages" :key="i">
-                    <router-link v-if="p.slug != 'home'" class="nav-link" :to="'/' + p.slug">
+                    <router-link
+                        v-if="p.slug != 'home'"
+                        class="nav-link"
+                        :to="'/' + p.slug"
+                    >
                         {{ p.name }}
                     </router-link>
                 </li>
             </ul>
         </div>
+
+        <CartSummary />
     </nav>
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState } from "vuex";
+import CartSummary from "./CartSummary";
 
 export default {
-    components: {},
+    components: { CartSummary },
     computed: {
-        ...mapState(["pages"])
+        ...mapState(["pages"]),
     },
 };
 </script>

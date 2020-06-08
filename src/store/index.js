@@ -2,6 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 
 import Axios from "axios";
+import CartModule from "./cart";
 
 Vue.use(Vuex);
 
@@ -13,17 +14,17 @@ const productsUrl = `${baseUrl}/products`;
 const productImagesUrl = "https://localhost:44304/media/products/";
 
 export default new Vuex.Store({
-
     strict: true,
+    modules: { cart: CartModule },
     state: {
         pages: [],
         categories: [],
         products: [],
-        productImages : productImagesUrl,
+        productImages: productImagesUrl,
         currentPage: 1,
         pageCount: 0,
         pageSize: 4,
-        currentCategory: "all"
+        currentCategory: "all",
     },
     mutations: {
         setPages(state, pages) {
@@ -43,17 +44,20 @@ export default new Vuex.Store({
         },
         setCurrentPage(state, page) {
             state.currentPage = page;
-        }
+        },
     },
     actions: {
         async setPagesAction(context) {
             context.commit("setPages", (await Axios.get(pagesUrl)).data);
         },
         async setCategoriesAction(context) {
-            context.commit("setCategories", (await Axios.get(categoriesUrl)).data);
+            context.commit(
+                "setCategories",
+                (await Axios.get(categoriesUrl)).data
+            );
         },
         async setProductsByCategoryAction(context, category) {
-            let url; 
+            let url;
             let productCountUrl;
 
             if (category != "all") {
@@ -79,6 +83,5 @@ export default new Vuex.Store({
 
             context.commit("setProducts", (await Axios.get(url)).data);
         },
-    }
-
+    },
 });
