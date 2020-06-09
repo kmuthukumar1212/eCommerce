@@ -25,6 +25,11 @@
         <div class="form-group">
             <label for="">Image</label>
             <input type="file" class="form-control" @change="onFileSelected" />
+
+            <p v-if="editMode" class="mt-3">
+                Current Image:
+                <img :src="productImages + product.image" width="100" />
+            </p>
         </div>
 
         <div class="form-group">
@@ -54,7 +59,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
 // import { mapState, mapActions, mapMutations } from "vuex";
 
 export default {
@@ -70,7 +75,8 @@ export default {
         };
     },
     computed: {
-        ...mapState(["categories"]),
+        ...mapState(["categories", "productImages"]),
+        ...mapActions(["addProduct", "editProduct"]),
         editMode() {
             return this.$route.params["op"] == "edit";
         },
@@ -81,6 +87,29 @@ export default {
         },
         onChange(e) {
             this.product.category = e.target.value;
+        },
+        handleProduct() {
+            const product = new FormData();
+
+            product.append("Name", this.product.name);
+            product.append("Description", this.product.description);
+            product.append("Price", this.product.price);
+            product.append("ImageUpload", this.product.image);
+            product.append(
+                "CategoryId",
+                this.product.category.id || this.product.category
+            );
+
+            if (this.editMode) {
+                product.append("Id", this.product.id);
+                product.append("Image", this.product.image.name);
+
+                await this.editProduct(product);
+            } else {
+                await this.addProduct(product);
+            }
+
+            this.$router.push("/admin/products");
         },
     },
     created() {

@@ -28,7 +28,7 @@ export default new Vuex.Store({
         currentCategory: "all",
     },
     getters: {
-        productById: (state) => (id) => state.products.find((p) => p.id == id)
+        productById: (state) => (id) => state.products.find((p) => p.id == id),
     },
     mutations: {
         setPages(state, pages) {
@@ -86,6 +86,12 @@ export default new Vuex.Store({
             }
 
             context.commit("setProducts", (await Axios.get(url)).data);
+        },
+        async addProduct(context, product) {
+            await Axios.post(productsUrl, product);
+        },
+        async editProduct(context, product) {
+            await Axios.put(productsUrl, product);
         },
     },
 });
