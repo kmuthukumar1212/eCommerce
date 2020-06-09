@@ -13,6 +13,9 @@ import ProductEditor from "../components/admin/ProductEditor";
 import AdminPages from "../components/admin/Pages";
 import PageEditor from "../components/admin/PageEditor";
 import Orders from "../components/admin/Orders";
+import Login from "../components/admin/Login";
+
+import dataStore from "../store";
 
 Vue.use(VueRouter);
 
@@ -23,10 +26,17 @@ export default new VueRouter({
         { path: "/cart", component: ShoppingCart },
         { path: "/checkout", component: Checkout },
         { path: "/thanks", component: Thanks },
-
+        { path: "/login", component: Login },
         {
             path: "/admin",
             component: Admin,
+            beforeEnter(to, from, next) {
+                if (dataStore.state.auth.authenticated) {
+                    next();
+                } else {
+                    next("/login");
+                }
+            },
             children: [
                 { path: "products", component: Products },
                 {

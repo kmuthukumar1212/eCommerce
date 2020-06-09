@@ -4,6 +4,7 @@ import Vuex from "vuex";
 import Axios from "axios";
 import CartModule from "./cart";
 import OrdersModule from "./orders";
+import AuthModule from "./auth";
 
 Vue.use(Vuex);
 
@@ -16,7 +17,11 @@ const productImagesUrl = "https://localhost:44304/media/products/";
 
 export default new Vuex.Store({
     strict: true,
-    modules: { cart: CartModule, orders: OrdersModule },
+    modules: {
+        cart: CartModule,
+        orders: OrdersModule,
+        auth: AuthModule,
+    },
     state: {
         pages: [],
         categories: [],
