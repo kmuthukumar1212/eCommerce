@@ -60,7 +60,6 @@
 
 <script>
 import { mapState, mapActions } from "vuex";
-// import { mapState, mapActions, mapMutations } from "vuex";
 
 export default {
     data() {
@@ -88,7 +87,7 @@ export default {
         onChange(e) {
             this.product.category = e.target.value;
         },
-        handleProduct() {
+        async handleProduct() {
             const product = new FormData();
 
             product.append("Name", this.product.name);
