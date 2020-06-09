@@ -29,6 +29,7 @@ export default new Vuex.Store({
     },
     getters: {
         productById: (state) => (id) => state.products.find((p) => p.id == id),
+        pageById: (state) => (id) => state.pages.find((p) => p.id == id),
     },
     mutations: {
         setPages(state, pages) {
@@ -95,9 +96,21 @@ export default new Vuex.Store({
         },
         async deleteProduct(context, product) {
             await Axios.delete(`${productsUrl}/${product.id}`);
-            
+
             let url = `${productsUrl}?p=${context.state.currentPage}`;
             context.commit("setProducts", (await Axios.get(url)).data);
+        },
+        async addPage(context, page) {
+            await Axios.post(pagesUrl, page);
+            context.commit("setPages", (await Axios.get(pagesUrl)).data);
+        },
+        async editPage(context, page) {
+            await Axios.put(`${pagesUrl}/${page.id}`, page);
+            context.commit("setPages", (await Axios.get(pagesUrl)).data);
+        },
+        async deletePage(context, page) {
+            await Axios.delete(`${pagesUrl}/${page.id}`);
+            context.commit("setPages", (await Axios.get(pagesUrl)).data);
         },
     },
 });
