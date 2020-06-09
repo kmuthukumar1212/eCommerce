@@ -35,7 +35,7 @@
                     v-for="(c, i) in categories"
                     :key="i"
                     :value="c.id"
-                    :selected="c.id == product.category.id"
+                    :selected="c.id == product.categoryId"
                 >
                     {{ c.name }}
                 </option>
@@ -54,9 +54,8 @@
 </template>
 
 <script>
-import { mapState, mapActions, mapMutations } from "vuex";
-
-import ProductPagination from "../ProductPagination";
+import { mapState } from "vuex";
+// import { mapState, mapActions, mapMutations } from "vuex";
 
 export default {
     data() {
@@ -74,7 +73,7 @@ export default {
         ...mapState(["categories"]),
         editMode() {
             return this.$route.params["op"] == "edit";
-        }
+        },
     },
     methods: {
         onFileSelected(e) {
@@ -82,9 +81,15 @@ export default {
         },
         onChange(e) {
             this.product.category = e.target.value;
-        }
+        },
     },
     created() {
+        if (this.editMode) {
+            Object.assign(
+                this.product,
+                this.$store.getters.productById(this.$route.params["id"])
+            );
+        }
     },
 };
 </script>
