@@ -66,7 +66,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
+import { mapState, mapActions, mapMutations } from "vuex";
 import { required } from "vuelidate/lib/validators";
 
 export default {
@@ -96,6 +96,7 @@ export default {
         },
     },
     methods: {
+        ...mapMutations(["setCurrentPage"]),
         ...mapActions(["addProduct", "editProduct"]),
         onFileSelected(e) {
             this.product.image = e.target.files[0];
@@ -126,6 +127,7 @@ export default {
                     await this.addProduct(product);
                 }
 
+                this.setCurrentPage(1);
                 this.$router.push("/admin/products");
             }
         },
