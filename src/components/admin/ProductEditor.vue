@@ -4,6 +4,13 @@
             {{ editMode ? "Edit Product" : "Add Product" }}
         </h2>
 
+        <h4
+            v-if="$v.$invalid && $v.$dirty"
+            class="bg-danger text-white text-center p-2"
+        >
+            Values Required for All Fields!
+        </h4>
+
         <div class="form-group">
             <label for="">Name</label>
             <input type="text" class="form-control" v-model="product.name" />
@@ -60,6 +67,7 @@
 
 <script>
 import { mapState, mapActions } from "vuex";
+import { required } from "vuelidate/lib/validators";
 
 export default {
     data() {
@@ -73,14 +81,22 @@ export default {
             },
         };
     },
+    validations: {
+        product: {
+            name: { required },
+            description: { required },
+            price: { required },
+            category: { required },
+        },
+    },
     computed: {
         ...mapState(["categories", "productImages"]),
-        ...mapActions(["addProduct", "editProduct"]),
         editMode() {
             return this.$route.params["op"] == "edit";
         },
     },
     methods: {
+        ...mapActions(["addProduct", "editProduct"]),
         onFileSelected(e) {
             this.product.image = e.target.files[0];
         },
@@ -88,27 +104,30 @@ export default {
             this.product.category = e.target.value;
         },
         async handleProduct() {
-            const product = new FormData();
+            this.$v.$touch();
+            if (!this.$v.$invalid) {
+                const product = new FormData();
 
-            product.append("Name", this.product.name);
-            product.append("Description", this.product.description);
-            product.append("Price", this.product.price);
-            product.append("ImageUpload", this.product.image);
-            product.append(
-                "CategoryId",
-                this.product.category.id || this.product.category
-            );
+                product.append("Name", this.product.name);
+                product.append("Description", this.product.description);
+                product.append("Price", this.product.price);
+                product.append("ImageUpload", this.product.image);
+                product.append(
+                    "CategoryId",
+                    this.product.category.id || this.product.category
+                );
 
-            if (this.editMode) {
-                product.append("Id", this.product.id);
-                product.append("Image", this.product.image.name);
+                if (this.editMode) {
+                    product.append("Id", this.product.id);
+                    product.append("Image", this.product.image.name);
 
-                await this.editProduct(product);
-            } else {
-                await this.addProduct(product);
+                    await this.editProduct(product);
+                } else {
+                    await this.addProduct(product);
+                }
+
+                this.$router.push("/admin/products");
             }
-
-            this.$router.push("/admin/products");
         },
     },
     created() {

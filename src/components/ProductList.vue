@@ -56,14 +56,16 @@ export default {
         },
     },
     created() {
+        this.setCurrentPage(1);
         let category = this.$route.params.category;
         this.setProductsByCategoryAction(category);
         this.setCurrentCategory(category);
     },
     beforeRouteUpdate(to, from, next) {
         this.setCurrentPage(1);
-        this.setProductsByCategoryAction(to.params.category);
-        this.setCurrentCategory(to.params.category);
+        let category = to.params.category;
+        this.setProductsByCategoryAction(category);
+        this.setCurrentCategory(category);
         next();
     },
 };

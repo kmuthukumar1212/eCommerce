@@ -23,6 +23,7 @@
                         <img :src="productImages + p.image" width="100" />
                     </td>
                     <td class="align-middle">{{ p.price | currency }}</td>
+                    <td class="align-middle">{{ p.category.name }}</td>
                     <td class="align-middle">
                         <button
                             class="btn btn-sm btn-secondary mx-2"
