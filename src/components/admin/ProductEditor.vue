@@ -1,5 +1,6 @@
 <template>
-    <div>
+    <div class="container">
+        <div class="card p-5">
         <h2 class="text-center p-2">
             {{ editMode ? "Edit Product" : "Add Product" }}
         </h2>
@@ -58,9 +59,10 @@
             <router-link to="/admin/products" class="btn btn-secondary m-1"
                 >Cancel</router-link
             >
-            <button class="btn btn-primary m-1" @click="handleProduct">
-                {{ editMode ? "Edit" : "Add" }}
+            <button class="btn btn-success m-1" @click="handleProduct">
+                {{ editMode ? "Update" : "Save" }}
             </button>
+        </div>
         </div>
     </div>
 </template>

@@ -1,5 +1,10 @@
 <template>
-    <div class="mt-5">
+<div class="col-md-4 offset-md-4 col-sm-12">
+    <div class="card p-4 mt-5" style="border-radius: 50px;">
+    
+    <h2 class="header-text">Login - Ackcio</h2>
+<hr />
+
         <h4
             v-if="showFailureMessage"
             class="bg-danger text-white text-center p-2"
@@ -7,21 +12,24 @@
             Authentication failed, please try again.
         </h4>
 
+        
         <div class="form-group">
-            <label for="">Username</label>
+            <label class="custom-label" for="">Username <font color="red">*</font></label>
             <input type="text" class="form-control" v-model="username" />
         </div>
 
         <div class="form-group">
-            <label for="">Password</label>
+            <label class="custom-label" for="">Password <font color="red">*</font></label>
             <input type="password" class="form-control" v-model="password" />
         </div>
 
         <div class="text-center">
-            <button class="btn btn-primary m-1" @click="handleAuth">
+            <button class="btn btn-success m-1" @click="handleAuth">
                 Log in
             </button>
         </div>
+  
+    </div>
     </div>
 </template>
 
@@ -55,3 +63,12 @@ export default {
     },
 };
 </script>
+<style scoped>
+.custom-label { font-family: Nunito, sans-serif; font-size: .813rem;
+font-weight: 600; }
+.header-text
+{
+    font-family: Nunito, sans-serif; font-size: 20px;
+    text-align: center;
+}
+</style>

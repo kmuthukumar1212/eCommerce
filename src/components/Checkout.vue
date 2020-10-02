@@ -1,42 +1,45 @@
 <template>
     <div class="row">
-        <div class="col-12">
-            <div class="m-2">
-                <div class="form-group m-2">
-                    <label for="">Name</label>
-                    <input
-                        type="text"
-                        class="form-control"
-                        v-model="$v.order.name.$model"
-                    />
-                    <validation-error :validation="$v.order.name" />
+        <div class="col-md-6 offset-md-3 col-sm-12">
+            <div class="card mt-3">
+                <div class="m-2">
+                    <div class="form-group m-2">
+                        <label class="custom-label" for="">Name <font color="red">*</font></label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            v-model="$v.order.name.$model"
+                        />
+                        <validation-error :validation="$v.order.name" />
+                    </div>
+                    <div class="form-group m-2">
+                        <label class="custom-label" for="">E-mail <font color="red">*</font></label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            v-model="$v.order.email.$model"
+                        />
+                        <validation-error :validation="$v.order.email" />
+                    </div>
+                    <div class="form-group m-2">
+                        <label class="custom-label" for="">Address <font color="red">*</font></label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            v-model="$v.order.address.$model"
+                        />
+                        <validation-error :validation="$v.order.address" />
+                    </div>
                 </div>
-                <div class="form-group m-2">
-                    <label for="">E-mail</label>
-                    <input
-                        type="text"
-                        class="form-control"
-                        v-model="$v.order.email.$model"
-                    />
-                    <validation-error :validation="$v.order.email" />
-                </div>
-                <div class="form-group m-2">
-                    <label for="">Address</label>
-                    <input
-                        type="text"
-                        class="form-control"
-                        v-model="$v.order.address.$model"
-                    />
-                    <validation-error :validation="$v.order.address" />
-                </div>
-            </div>
-        </div>
+            
 
-        <div class="col-12 text-center">
-            <router-link to="/cart" class="btn btn-secondary m-1"
-                >Back</router-link
-            >
-            <button class="btn btn-primary m-1" @click="submitOrder">Place Order</button>
+            <div class="col-12 text-center">
+                <router-link to="/cart" class="btn btn-secondary m-1"
+                    >Back</router-link
+                >
+                <button class="btn btn-success m-1" @click="submitOrder">Place Order</button>
+            </div>
+            </div>
         </div>
     </div>
 </template>
@@ -54,8 +57,8 @@ export default {
     data() {
         return {
             order: {
-                name: "John",
-                email: "john@gmail.com",
+                name: "Muthu",
+                email: "muthu@gmail.com",
                 address: "John Street",
             },
         };
@@ -99,3 +102,12 @@ export default {
     },
 };
 </script>
+
+<style scoped>
+.custom-label
+{
+    font-family: Nunito, sans-serif;
+    font-size: .813rem;
+    font-weight: 600;
+}
+</style>

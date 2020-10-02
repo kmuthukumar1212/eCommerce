@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container-fluid">
         <Header />
 
         <router-view />
@@ -26,3 +26,6 @@ export default {
     },
 };
 </script>
+<style scoped>
+
+</style>

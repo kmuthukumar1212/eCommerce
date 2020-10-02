@@ -2,11 +2,10 @@
     <div>
         <h2>Products</h2>
 
-        <router-link to="/admin/products/add" class="btn btn-primary mb-4"
-            >Add Product</router-link
-        >
+        <router-link to="/admin/products/add" class="btn btn-success mb-4" style="float:right;"
+            ><i class="fa fa-cart-plus"></i> Add Product</router-link>
 
-        <table class="table">
+        <table class="table table-bordered text-center">
             <thead>
                 <tr>
                     <th>Name</th>
@@ -29,13 +28,13 @@
                             class="btn btn-sm btn-secondary mx-2"
                             @click="handleEdit(p)"
                         >
-                            Edit
+                           <i class="fa fa-pencil"></i> Edit
                         </button>
                         <button
                             class="btn btn-sm btn-danger mx-2"
                             @click="deleteProduct(p)"
                         >
-                            Delete
+                           <i class="fa fa-trash-o"></i> Delete
                         </button>
                     </td>
                 </tr>

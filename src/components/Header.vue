@@ -1,6 +1,6 @@
 <template>
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-        <router-link class="navbar-brand" to="/">CMS ShoppingCart</router-link>
+        <router-link class="navbar-brand" to="/categories/all">Ackcio - Online Shopping</router-link>
         <button
             class="navbar-toggler"
             type="button"
@@ -24,11 +24,7 @@
                         {{ p.name }}
                     </router-link>
                 </li>
-                <li class="nav-item active">
-                    <router-link to="/admin" class="nav-link"
-                        >Admin</router-link
-                    >
-                </li>
+                
             </ul>
         </div>
 

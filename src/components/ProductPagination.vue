@@ -51,3 +51,9 @@ export default {
     },
 };
 </script>
+
+<style scoped>
+.btn-primary{ background-color: #639; border-color: #639; font-family: Nunito,
+sans-serif; font-size: .813rem; border-radius: 30px; }
+
+</style>

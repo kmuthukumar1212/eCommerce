@@ -2,10 +2,10 @@
     <div class="row mt-3">
         <CategoryList />
 
-        <div class="col-9">
+        <div class="col-10">
             <h2 class="display-4">Your cart</h2>
 
-            <table class="table table-bordered">
+            <table class="table table-bordered text-center">
                 <thead>
                     <tr>
                         <th>Product</th>
@@ -26,7 +26,7 @@
                         <td>{{ c.quantity }}</td>
                         <td>
                             <button
-                                class="btn small btn-primary mx-1"
+                                class="btn small btn-success mx-1"
                                 @click="handleAddProduct(c.product)"
                             >
                                 +
@@ -40,8 +40,7 @@
                             <button
                                 class="btn small btn-danger mx-1"
                                 @click="handleRemoveProduct(c.product.id)"
-                            >
-                                remove
+                            >  <i class="fa fa-trash"></i>
                             </button>
                         </td>
                         <td>{{ c.product.price | currency }}</td>
@@ -59,13 +58,13 @@
                             <button
                                 class="btn btn-danger float-left"
                                 @click="handleClearCart"
-                            >
+                            > <i class="fa fa-refresh"></i>
                                 Clear Cart
                             </button>
                             <router-link
                                 to="/checkout"
-                                class="btn btn-primary float-right"
-                                >Checkout</router-link
+                                class="btn btn-success float-right"
+                                > <i class="fa fa-shopping-basket"></i> Checkout</router-link
                             >
                         </td>
                     </tr>
@@ -111,3 +110,11 @@ export default {
     },
 };
 </script>
+
+<style scoped>
+.table td, .table th
+{
+    font-family: Nunito, sans-serif;
+    font-size: .813rem;
+}
+</style>
